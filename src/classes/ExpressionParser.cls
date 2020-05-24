@@ -16,7 +16,7 @@ public with sharing class ExpressionParser {
     public Node parse() {
         Node root = this.factor();
 
-        while (this.currentToken.getType() == Token.Type.OR_COMPARISON || this.currentToken.getType() == Token.Type.AND_COMPARISON) {
+        while (this.comparisonToken()) {
             Token token = this.currentToken;
             this.eat();
 
@@ -30,12 +30,17 @@ public with sharing class ExpressionParser {
         return root;
     }
 
+    private Boolean comparisonToken() {
+        return this.currentToken.getType() == Token.Type.OR_COMPARISON
+                || this.currentToken.getType() == Token.Type.AND_COMPARISON;
+    }
+
     private Node factor() {
-        Token previousToken = this.currentToken;
-        if (previousToken.getType() == Token.Type.CONDITION) {
+        Token firstToken = this.currentToken;
+        if (firstToken.getType() == Token.Type.CONDITION) {
             this.eat();
-            return new Node(previousToken);
-        } else if (previousToken.getType() == Token.Type.LBRACKET) {
+            return new Node(firstToken);
+        } else if (firstToken.getType() == Token.Type.LBRACKET) {
             this.eat();
             Node node = this.parse();
             this.eat();

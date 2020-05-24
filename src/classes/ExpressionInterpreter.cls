@@ -27,7 +27,6 @@ public with sharing class ExpressionInterpreter implements NodeVisitor {
     }
 
     public Boolean visit(Node node) {
-
         Token nodeValue = (Token) node.getValue();
         if (nodeValue.getType() == Token.Type.CONDITION) {
             return this.visitCondition(node);

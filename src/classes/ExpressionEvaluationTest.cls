@@ -94,24 +94,25 @@ public with sharing class ExpressionEvaluationTest {
         evaluation.setConditions(conditions.values());
         evaluation.setExpression(expression);
 
-        Boolean expected = (conditions.get('1').isTrue()  && conditions.get('3').isTrue())
-                &&  ( conditions.get('4').isTrue() && conditions.get('3').isTrue())
+        Boolean expected = (conditions.get('1').isTrue() && conditions.get('3').isTrue())
+                && (conditions.get('4').isTrue() && conditions.get('3').isTrue())
                 && (conditions.get('trueFalse').isTrue()
-                || ( conditions.get('definitelyTrue').isTrue() && conditions.get('name1').isTrue()));
+                || (conditions.get('definitelyTrue').isTrue() && conditions.get('name1').isTrue()));
         Boolean received = evaluation.isTrue();
         System.assertEquals(expected, received);
     }
-   @IsTest
+
+    @IsTest
     public static void nullTest() {
         String expression = '(1 and 3) and (4 and 3) and (trueFalse or (definitelyTrue and name1))';
         ExpressionEvaluation evaluation = new ExpressionEvaluation();
         evaluation.setConditions(conditions.values());
         evaluation.setExpression(expression);
 
-        Boolean expected = (conditions.get('1').isTrue()  && conditions.get('3').isTrue())
-                &&  ( conditions.get('4').isTrue() && conditions.get('3').isTrue())
+        Boolean expected = (conditions.get('1').isTrue() && conditions.get('3').isTrue())
+                && (conditions.get('4').isTrue() && conditions.get('3').isTrue())
                 && (conditions.get('trueFalse').isTrue()
-                || ( conditions.get('definitelyTrue').isTrue() && conditions.get('name1').isTrue()));
+                || (conditions.get('definitelyTrue').isTrue() && conditions.get('name1').isTrue()));
         Boolean received = evaluation.isTrue();
         System.assertEquals(expected, received);
     }
