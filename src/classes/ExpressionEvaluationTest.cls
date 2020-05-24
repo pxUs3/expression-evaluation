@@ -16,7 +16,7 @@ public with sharing class ExpressionEvaluationTest {
             '5' => new TestCondition('5', false),
             'one' => new TestCondition('one', true),
             'two2' => new TestCondition('two2', false),
-            'three3' => new TestCondition('tree3', true),
+            'three3' => new TestCondition('three3', true),
             'name' => new TestCondition('name', false),
             'false' => new TestCondition('false', false),
             'trueFalse' => new TestCondition('trueFalse', false),
@@ -103,6 +103,16 @@ public with sharing class ExpressionEvaluationTest {
     }
 
     @IsTest
+    public static void complexEvaluation2() {
+        String expression = '2 AND 4 AND ((three3 AND name1) OR (2 AND 4 AND name1 AND three3 AND definitelyTrue) or ((three3 AND name1) OR (2 AND 4 AND name1 AND three3 AND definitelyTrue))';
+        ExpressionEvaluation evaluation = new ExpressionEvaluation();
+        evaluation.setConditions(conditions.values());
+        evaluation.setExpression(expression);
+        Boolean result = evaluation.isTrue();
+        System.assert(result);
+    }
+
+    @IsTest
     public static void nullTest() {
         String expression = '(1 and 3) and (4 and 3) and (trueFalse or (definitelyTrue and name1))';
         ExpressionEvaluation evaluation = new ExpressionEvaluation();
@@ -116,7 +126,14 @@ public with sharing class ExpressionEvaluationTest {
         Boolean received = evaluation.isTrue();
         System.assertEquals(expected, received);
     }
-
+    @IsTest
+    public static void printBlankTest() {
+        String expression = '2 AND 4 AND ((three3 AND name1) OR (2 AND 4 AND name1 AND three3 AND definitelyTrue))';
+        ExpressionParser parser = new ExpressionParser(new ExpressionLexer(expression));
+        Node root = parser.parse();
+        root.print();
+        System.assert(true);
+    }
     public class TestCondition implements Condition {
         private Boolean value;
         private String name;
@@ -126,6 +143,7 @@ public with sharing class ExpressionEvaluationTest {
         }
 
         public Boolean isTrue() {
+            System.debug(this.name +  ' is ' + this.value);
             return this.value;
         }
 

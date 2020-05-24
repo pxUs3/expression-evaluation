@@ -18,7 +18,7 @@ public with sharing class ExpressionInterpreter implements NodeVisitor {
 
     public Boolean getResult() {
         Node root = this.parser.parse();
-        System.debug(JSON.serializePretty(root));
+        root.print();
         if (root == null) {
             return false;
         }

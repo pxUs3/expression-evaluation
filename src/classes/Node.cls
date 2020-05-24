@@ -2,7 +2,7 @@
  * @date 2020-05-20
  * @author Serhii Klevchuk
  * @version 1.0
- * @description <p> </p>
+ * @description <p>Part of the tree that holds value and links to it's children nodes.</p>
  */
 public virtual with sharing class Node {
     private Object value;
@@ -11,36 +11,52 @@ public virtual with sharing class Node {
 
     public Node() {
     }
-
+    /**
+     * @param value any value for node to hold.
+     */
     public Node(Object value) {
         this.value = value;
     }
-
+    /**
+     * @return Object value
+     */
     public Object getValue() {
         return this.value;
     }
-
+    /**
+     * @param value any value for node to hold.
+     */
     public void setValue(Object value) {
         this.value = value;
     }
-
+    /**
+     * @return left child
+     */
     public Node getLeftChild() {
         return this.leftChild;
     }
-
+    /**
+     * @param leftChild left node child
+     */
     public void setLeftChild(Node leftChild) {
         this.leftChild = leftChild;
     }
-
+    /**
+     * @return right child
+     */
     public Node getRightChild() {
         return this.rightChild;
     }
-
+    /**
+     * @param rightChild right node child
+     */
     public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
     }
-
-    public override String toString() {
+    /**
+     * Prints node in hierarchical format
+     */
+    public void print() {
         String result = '\n';
         result += this.getValue();
         String pointerForRight = '└──';
@@ -49,7 +65,7 @@ public virtual with sharing class Node {
 
         result += this.buildToString('', pointerForLeft, this.getLeftChild(), this.getRightChild() != null);
         result += this.buildToString('', pointerForRight, this.getRightChild(), false);
-        return result;
+        System.debug(result);
     }
 
     public String buildToString(String padding, String pointer, Node node, Boolean hasRightSibling) {
