@@ -24,6 +24,16 @@ public with sharing class Token {
     public Object getValue() {
         return this.value;
     }
+    public override String toString() {
+        String result = '(';
+        if (this.type != null) {
+            result += ' type : ' + this.type + ' ';
+        }
+        if (this.value != null) {
+            result += ' value : ' + this.value + ' ';
+        }
+        return result += ')';
+    }
     public enum Type {
         AND_COMPARISON, OR_COMPARISON, CONDITION, LBRACKET, RBRACKET, EOF
     }
