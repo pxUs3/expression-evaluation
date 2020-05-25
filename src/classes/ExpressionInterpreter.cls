@@ -6,10 +6,10 @@
  */
 public with sharing class ExpressionInterpreter implements NodeVisitor {
     private Map<Object, Condition> conditionsByName = new Map<Object, Condition>();
-    private ExpressionParser parser;
+    private Node tree;
 
-    public ExpressionInterpreter(ExpressionParser parser) {
-        this.parser = parser;
+    public ExpressionInterpreter(Node tree) {
+        this.tree = tree;
     }
 
     public void setConditions(Map<Object, Condition> conditionsByName) {
@@ -17,13 +17,12 @@ public with sharing class ExpressionInterpreter implements NodeVisitor {
     }
 
     public Boolean getResult() {
-        Node root = this.parser.parse();
-        root.print();
-        if (root == null) {
+        if (this.tree == null) {
             return false;
         }
+        this.tree.print();
 
-        return this.visit(root);
+        return this.visit(this.tree);
     }
 
     public Boolean visit(Node node) {

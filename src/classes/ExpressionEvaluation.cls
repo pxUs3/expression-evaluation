@@ -5,6 +5,7 @@
  * @description <p> </p>
  */
 public with sharing class ExpressionEvaluation {
+    private static final Map<String, Node> treeMap = new Map<String, Node>();
     private Map<Object, Condition> conditions = new Map<Object, Condition>();
     private String expression;
 
@@ -23,8 +24,13 @@ public with sharing class ExpressionEvaluation {
         if(String.isBlank(this.expression)){
             return true;
         }
-        ExpressionParser parser = new ExpressionParser(new ExpressionLexer(expression));
-        ExpressionInterpreter interpreter = new ExpressionInterpreter(parser);
+        Node expressionTree = treeMap.get(expression);
+        if(expressionTree == null){
+            ExpressionParser parser = new ExpressionParser(new ExpressionLexer(expression));
+            expressionTree = parser.parse();
+            treeMap.put(expression, expressionTree);
+        }
+        ExpressionInterpreter interpreter = new ExpressionInterpreter(expressionTree);
         interpreter.setConditions(this.conditions);
         return interpreter.getResult();
     }

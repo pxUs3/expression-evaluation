@@ -64,7 +64,7 @@ public with sharing class ExpressionEvaluationTest {
     public static void simpleEvaluation1() {
         String expression = '1 or 2';
         ExpressionParser expressionParser = new ExpressionParser(new ExpressionLexer(expression));
-        ExpressionInterpreter interpreter = new ExpressionInterpreter(expressionParser);
+        ExpressionInterpreter interpreter = new ExpressionInterpreter(expressionParser.parse());
         interpreter.setConditions(conditions);
         Boolean expected = conditions.get('1').isTrue() || conditions.get('2').isTrue();
         Boolean received = interpreter.getResult();

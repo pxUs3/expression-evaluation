@@ -65,7 +65,7 @@ public virtual with sharing class Node {
 
         result += this.buildToString('', pointerForLeft, this.getLeftChild(), this.getRightChild() != null);
         result += this.buildToString('', pointerForRight, this.getRightChild(), false);
-        System.debug(result);
+        System.debug(LoggingLevel.DEBUG, result);
     }
 
     public String buildToString(String padding, String pointer, Node node, Boolean hasRightSibling) {
