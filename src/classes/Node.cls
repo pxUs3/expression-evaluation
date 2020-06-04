@@ -56,7 +56,7 @@ public virtual with sharing class Node {
     /**
      * Prints node in hierarchical format
      */
-    public void print() {
+    public override String toString() {
         String result = '\n';
         result += this.getValue();
         String pointerForRight = '└──';
@@ -65,7 +65,7 @@ public virtual with sharing class Node {
 
         result += this.buildToString('', pointerForLeft, this.getLeftChild(), this.getRightChild() != null);
         result += this.buildToString('', pointerForRight, this.getRightChild(), false);
-        System.debug(LoggingLevel.DEBUG, result);
+        return result;
     }
 
     public String buildToString(String padding, String pointer, Node node, Boolean hasRightSibling) {
