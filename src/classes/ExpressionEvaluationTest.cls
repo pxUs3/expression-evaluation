@@ -62,7 +62,7 @@ public with sharing class ExpressionEvaluationTest {
 
     @IsTest
     public static void simpleEvaluation1() {
-        String expression = '1 or 2';
+        String expression = '1 or 2 ';
         ExpressionParser expressionParser = new ExpressionParser(new ExpressionLexer(expression));
         ExpressionInterpreter interpreter = new ExpressionInterpreter(expressionParser.parse());
         interpreter.setConditions(conditions);
@@ -70,6 +70,7 @@ public with sharing class ExpressionEvaluationTest {
         Boolean received = interpreter.getResult();
         System.assertEquals(expected, received);
     }
+
     @IsTest
     public static void simpleEvaluation2() {
         String expression = '1 and 3 and 4 and 3 and one and trueFalse and name1';
@@ -131,9 +132,10 @@ public with sharing class ExpressionEvaluationTest {
         String expression = '2 AND 4 AND ((three3 AND name1) OR (2 AND 4 AND name1 AND three3 AND definitelyTrue))';
         ExpressionParser parser = new ExpressionParser(new ExpressionLexer(expression));
         Node root = parser.parse();
-        root.print();
+        System.debug(root);
         System.assert(true);
     }
+
     public class TestCondition implements Condition {
         private Boolean value;
         private String name;

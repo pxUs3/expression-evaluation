@@ -46,14 +46,13 @@ public with sharing class ExpressionLexer {
                     return new Token(Token.Type.CONDITION, name);
                 }
             }
-
         }
         return new Token(Token.Type.EOF);
     }
 
     private Boolean nameNotEnded() {
         return String.isNotBlank(this.currentChar()) && this.currentChar() != ' '
-                && this.currentChar() != ')' && this.currentChar() != '(';
+                && this.currentChar() != ')';
     }
 
     private Boolean isOrComparison() {
@@ -85,11 +84,9 @@ public with sharing class ExpressionLexer {
     private void advance() {
         this.pos++;
     }
-
     private void advance(Integer i) {
         this.pos += i;
     }
-
     private void skipWhitespace() {
         while (this.notEOF() && (this.currentChar() == ' ' || this.currentChar() == '')) {
             this.advance();

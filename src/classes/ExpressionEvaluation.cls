@@ -15,7 +15,7 @@ public with sharing class ExpressionEvaluation {
     }
     public ExpressionEvaluation setConditions(List<Condition> conditions) {
         for (Condition condition : conditions) {
-            this.conditions.put(condition.getName(), condition);
+            this.conditions.put(condition.getName().toLowerCase(), condition);
         }
         return this;
     }

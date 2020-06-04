@@ -20,7 +20,6 @@ public with sharing class ExpressionInterpreter implements NodeVisitor {
         if (this.tree == null) {
             return false;
         }
-        this.tree.print();
 
         return this.visit(this.tree);
     }
